@@ -1,7 +1,14 @@
 
 //npm install fastify
 
-const server = require("fastify")();
+const fs = require("fs");
+
+const server = require("fastify")({
+    https: {
+        key: fs.readFileSync(__dirname + "/tls/llave-privada.key"),
+        cert: fs.readFileSync(__dirname + "/shared/tls/certificado-publico.cert")
+    }
+});
 
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || 4000;
